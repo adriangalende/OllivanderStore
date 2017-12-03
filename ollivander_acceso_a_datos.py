@@ -120,7 +120,7 @@ def mostrarCasosTest(matrizCasosTest):
 
         output:
             muestra por consola los items que contiene la lista matrizCasosTest
-            
+
 
     '''
 
@@ -130,17 +130,58 @@ def mostrarCasosTest(matrizCasosTest):
             print(item)
 
 
+
+
+def transformarStringaInt(matrizCasosTest):
+    '''
+        inputs:
+            matrizCasosTest lista
+
+        output:
+            devuelve en memoria lista con la misma estructura que matrizCasosTest
+            pero con los tipos que corresponde a cada item
+
+            matrizCasosTestFormateada =>
+                [
+                    [
+                        [name,sellIn,quality], # String, integer, integer
+                    ],
+
+    '''
+    matrizCasosTestFormateada = []
+    for (offset, casosTestDia) in enumerate(matrizCasosTest):
+        casosDia = []
+        for item in casosTestDia:
+            item[1] = int(item[1].replace(" ",""))
+            item[2] = int(item[2].replace(" ",""))
+            casosDia.append(item)
+        matrizCasosTestFormateada.append(casosDia)
+    return matrizCasosTestFormateada;
+
+
+
+
 if __name__ == "__main__":
 
     rutaAccesoFichero = "./casos_tets.txt"
     # rutaAccesoFichero = "stdout_bug_conjured.gr"
 
     matrizCasosTest = []
+    matrizCasosTestFormateada = []
 
     matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
 
     mostrarCasosTest(matrizCasosTest)
 
+    # devuelve lista con los tipos adecuados
+    # transformarStringaInt(matrizCasosTest)
+
     ficheroVolcadoCasosTest = "./stdout.txt"
 
     crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest)
+
+    #Test
+    # String: +5 Dexterity Vest, int: 10, int: 20
+    #print(type(transformarStringaInt(matrizCasosTest)[0][0][0])) >> Str
+    #print(type(transformarStringaInt(matrizCasosTest)[0][0][1])) >> int
+    #print(type(transformarStringaInt(matrizCasosTest)[0][0][0])) >> int
