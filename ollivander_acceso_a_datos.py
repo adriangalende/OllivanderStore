@@ -131,6 +131,7 @@ def mostrarCasosTest(matrizCasosTest):
 
 
 
+# Helpers
 
 def transformarStringaInt(matrizCasosTest):
     '''
