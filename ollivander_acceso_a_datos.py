@@ -74,6 +74,30 @@ def accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero):
 
 
 def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
+    '''
+        inputs:
+            ficheroVolcadoCasosTest String # ruta de acceso a fichero para casos test
+            matrizCasosTest lista #contiene lista de listas, que contiene una lista de items
+
+        recorre matrizCasosTest utilizando la tupla:
+            (offset, casosTestDia) => indice de la lista, lista con lista de items
+            #escribe cabecera separadora convirtiendo el indice que recibe de offset a string
+            ----- Dia x -----
+            recorre casosTestDia
+                escribe en el archivo de texto la unión de cada una de las listas por ","
+                y añade un salto de línea para el próximo item
+
+                ["name","sellIn","quality"] ==> name,sellIn,quality \n
+                ["nombreItem"," x"," x"] ==> nombreitem, x, x \n
+
+        Output:
+            Si el archivo que está en la ruta no existe, lo crea
+            si ya existía lo sobreescribe con el siguiente formato
+            ----- Dia x -----
+            name,sellIn,quality
+            nombreitem, x, x
+
+        '''
 
     try:
         if not isinstance(ficheroVolcadoCasosTest, str):
