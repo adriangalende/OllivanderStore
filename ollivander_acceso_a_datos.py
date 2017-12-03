@@ -114,6 +114,15 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
 
 
 def mostrarCasosTest(matrizCasosTest):
+    '''
+        inputs:
+            matrizCasosTest lista
+
+        output:
+            muestra por consola los items que contiene la lista matrizCasosTest
+            
+
+    '''
 
     for (offset, casosTestDia) in enumerate(matrizCasosTest):
         print('-' * 5 + " Dia %d: " % offset + '-' * 5)
