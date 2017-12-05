@@ -111,8 +111,7 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
             nombreitem, x, x
 
         '''
-    matrizCasosTestString = matrizCasosTest[:]
-    matrizCasosTestString = transformarIntAString(matrizCasosTestString)
+    matrizCasosTestString = transformarIntAString(matrizCasosTest[:])
     try:
         if not isinstance(ficheroVolcadoCasosTest, str):
             raise ValueError
@@ -169,9 +168,9 @@ def transformarIntAString(matrizCasosTestString):
 
     '''
     for (offset, casosTestDia) in enumerate(matrizCasosTestString):
-        for item in casosTestDia:
-            item[1] = str(item[1])
-            item[2] = str(item[2])
+        for listItem in casosTestDia:
+            listItem[1] = str(listItem[1])
+            listItem[2] = str(listItem[2])
     return matrizCasosTestString;
 
 
@@ -186,10 +185,9 @@ if __name__ == "__main__":
 
     matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
 
-    #mostrarCasosTest(matrizCasosTest)
+    mostrarCasosTest(matrizCasosTest)
 
-    # devuelve lista con los tipos adecuados
-    # transformarStringaInt(matrizCasosTest)
+
 
     ficheroVolcadoCasosTest = "./stdout.txt"
 
@@ -198,6 +196,6 @@ if __name__ == "__main__":
 
     #Test
     # String: +5 Dexterity Vest, int: 10, int: 20
-    #print(type(transformarStringaInt(matrizCasosTest)[0][0][0])) >> Str
-    #print(type(transformarStringaInt(matrizCasosTest)[0][0][1])) >> int
-    #print(type(transformarStringaInt(matrizCasosTest)[0][0][0])) >> int
+    #print(type(matrizCasosTest)[0][0][0]) >> Str
+    #print(type(matrizCasosTest)[0][0][1]) >> int
+    #print(type(matrizCasosTest)[0][0][0]) >> int
