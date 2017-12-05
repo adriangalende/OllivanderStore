@@ -92,7 +92,7 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
             ficheroVolcadoCasosTest String # ruta de acceso a fichero para casos test
             matrizCasosTest lista #contiene lista de listas, que contiene una lista de items
 
-        recorre matrizCasosTest utilizando la tupla:
+        recorre matrizCasosTestString ( copia de matrizCasosTest) utilizando la tupla:
             (offset, casosTestDia) => indice de la lista, lista con lista de items
             #escribe cabecera separadora convirtiendo el indice que recibe de offset a string
             ----- Dia x -----
@@ -111,7 +111,8 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
             nombreitem, x, x
 
         '''
-    matrizCasosTestString = transformarIntAString(matrizCasosTest[:])
+    matrizCasosTestString = matrizCasosTest[:]
+    matrizCasosTestString = transformarIntAString(matrizCasosTestString)
     try:
         if not isinstance(ficheroVolcadoCasosTest, str):
             raise ValueError
@@ -146,51 +147,46 @@ def mostrarCasosTest(matrizCasosTest):
 
 # Helpers
 
-def transformarIntAString(matrizCasosTest):
+def transformarIntAString(matrizCasosTestString):
     '''
-    devuelve en memoria lista con la misma estructura que matrizCasosTest
+    devuelve en memoria lista con la misma estructura que matrizCasosTestString
     pero con los tipos que corresponde a cada item para poder volcar en fichero de texto
 
         inputs:
-            matrizCasosTest lista
-            matrizCasosTestFormateada =>
+            matrizCasosTestString lista
+            matrizCasosTestString =>
                 [
                     [
                         [name,sellIn,quality], # String, integer, integer
                     ],
 
         output:
-            matrizCasosTestFormateada =>
+            matrizCasosTestString =>
                 [
                     [
                         [name,sellIn,quality], # String, String, String
                     ],
 
     '''
-    matrizCasosTestFormateada = []
-    for (offset, casosTestDia) in enumerate(matrizCasosTest):
-        casosDia = []
+    for (offset, casosTestDia) in enumerate(matrizCasosTestString):
         for item in casosTestDia:
             item[1] = str(item[1])
             item[2] = str(item[2])
-            casosDia.append(item)
-        matrizCasosTestFormateada.append(casosDia)
-    return matrizCasosTestFormateada;
+    return matrizCasosTestString;
 
 
 
 
 if __name__ == "__main__":
 
-    rutaAccesoFichero = "./casos_tets.txt"
+    rutaAccesoFichero = "./casos_test.txt"
     # rutaAccesoFichero = "stdout_bug_conjured.gr"
 
     matrizCasosTest = []
-    matrizCasosTestFormateada = []
 
     matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
 
-    mostrarCasosTest(matrizCasosTest)
+    #mostrarCasosTest(matrizCasosTest)
 
     # devuelve lista con los tipos adecuados
     # transformarStringaInt(matrizCasosTest)
@@ -198,7 +194,6 @@ if __name__ == "__main__":
     ficheroVolcadoCasosTest = "./stdout.txt"
 
     crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest)
-
 
 
     #Test
