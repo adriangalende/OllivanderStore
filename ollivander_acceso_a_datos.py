@@ -67,7 +67,7 @@ def accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero):
             elif linea.find("name") != -1:
                 numeroPropiedadesItem = len(linea.split(','))
             else:
-                '''
+                itemsDia = []
                 for item in linea.rstrip().rsplit(',', maxsplit=numeroPropiedadesItem - 1):
                     try:
                         int(item)
@@ -76,12 +76,8 @@ def accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero):
                     else:
                         item = int(item)
                     finally:
-                        casosTestDia.append(item)
-                '''
-                item = linea.rstrip().rsplit(',', maxsplit=numeroPropiedadesItem - 1)
-                item[1] = int(item[1])
-                item[2] = int(item[2])
-                casosTestDia.append(item)
+                        itemsDia.append(item)
+                casosTestDia.append(itemsDia)
         fichero.close()
         return matrizCasosTest
 
@@ -166,11 +162,11 @@ def transformarIntAString(matrizCasosTestString):
                         [name,sellIn,quality], # String, String, String
                     ],
 
-    '''
+    ''' 
     for (offset, casosTestDia) in enumerate(matrizCasosTestString):
         for listItem in casosTestDia:
-            listItem[1] = str(listItem[1])
-            listItem[2] = str(listItem[2])
+            for item in listItem:
+                listItem[listItem.index(item)] = str(item)
     return matrizCasosTestString;
 
 
@@ -185,7 +181,7 @@ if __name__ == "__main__":
 
     matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
 
-    mostrarCasosTest(matrizCasosTest)
+    #mostrarCasosTest(matrizCasosTest)
 
 
 
