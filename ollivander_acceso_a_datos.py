@@ -67,50 +67,6 @@ def accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero):
             elif linea.find("name") != -1:
                 numeroPropiedadesItem = len(linea.split(','))
             else:
-                item = linea.rstrip().rsplit(',', maxsplit=numeroPropiedadesItem - 1)
-                casosTestDia.append(item)
-        fichero.close()
-        return matrizCasosTest
-
-
-#Refactorización
-def accesoCasosText(matrizCasosTest, rutaAccesoFichero):
-    '''
-        Recibe una lista y un string como parámetros y debe devolver la lista
-        con los datos obtenidos de la fuente de datos.
-
-        inputs:
-            matrizCasosTest => lista []
-            rutaAccesoFichero => String con ruta de acceso a fichero ( fuente datos )
-
-        outputs:
-            matrizCasosTest con siguiente formato:
-                matrizCasosTest = [
-                        [
-                            [name,sellIn,quality], => [String,Int,Int]
-                        ],
-    '''
-    try:
-        if not isinstance(rutaAccesoFichero, str):
-            raise ValueError
-        fichero = open(rutaAccesoFichero, 'r')
-    except FileNotFoundError:
-        print("Fichero no encontrado")
-        return []
-    except ValueError:
-        print("El nombre del fichero ha de ser un string")
-        return []
-    else:
-        matrizCasosTest = []
-        numeroPropiedadesItem = 0
-        for linea in fichero:
-            if linea.find("day") != -1:
-                casosTestDia = []
-            elif linea == "\n":
-                matrizCasosTest.append(casosTestDia)
-            elif linea.find("name") != -1:
-                numeroPropiedadesItem = len(linea.split(','))
-            else:
                 '''
                 for item in linea.rstrip().rsplit(',', maxsplit=numeroPropiedadesItem - 1):
                     try:
@@ -128,7 +84,6 @@ def accesoCasosText(matrizCasosTest, rutaAccesoFichero):
                 casosTestDia.append(item)
         fichero.close()
         return matrizCasosTest
-
 
 
 def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
@@ -156,7 +111,7 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
             nombreitem, x, x
 
         '''
-
+    matrizCasosTestString = transformarIntAString(matrizCasosTest[:])
     try:
         if not isinstance(ficheroVolcadoCasosTest, str):
             raise ValueError
@@ -164,7 +119,7 @@ def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
     except ValueError:
             print("La ruta de acceso al fichero ha de ser un string")
     else:
-        for (offset, casosTestDia) in enumerate(matrizCasosTest):
+        for (offset, casosTestDia) in enumerate(matrizCasosTestString):
             stdout.write('-' * 5 + " Dia %d: " % offset + '-' * 5 + '\n')
             for item in casosTestDia:
                 stdout.write(','.join(item) + '\n')
@@ -191,19 +146,24 @@ def mostrarCasosTest(matrizCasosTest):
 
 # Helpers
 
-def transformarStringaInt(matrizCasosTest):
+def transformarIntAString(matrizCasosTest):
     '''
+    devuelve en memoria lista con la misma estructura que matrizCasosTest
+    pero con los tipos que corresponde a cada item para poder volcar en fichero de texto
+
         inputs:
             matrizCasosTest lista
-
-        output:
-            devuelve en memoria lista con la misma estructura que matrizCasosTest
-            pero con los tipos que corresponde a cada item
-
             matrizCasosTestFormateada =>
                 [
                     [
                         [name,sellIn,quality], # String, integer, integer
+                    ],
+
+        output:
+            matrizCasosTestFormateada =>
+                [
+                    [
+                        [name,sellIn,quality], # String, String, String
                     ],
 
     '''
@@ -211,8 +171,8 @@ def transformarStringaInt(matrizCasosTest):
     for (offset, casosTestDia) in enumerate(matrizCasosTest):
         casosDia = []
         for item in casosTestDia:
-            item[1] = int(item[1].replace(" ",""))
-            item[2] = int(item[2].replace(" ",""))
+            item[1] = str(item[1])
+            item[2] = str(item[2])
             casosDia.append(item)
         matrizCasosTestFormateada.append(casosDia)
     return matrizCasosTestFormateada;
@@ -228,18 +188,18 @@ if __name__ == "__main__":
     matrizCasosTest = []
     matrizCasosTestFormateada = []
 
-    #matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
-    matrizCasosTest = accesoCasosText(matrizCasosTest, rutaAccesoFichero)
-    print(matrizCasosTest[0][0][1])
-    print(type(matrizCasosTest[0][0][1]))
-    #mostrarCasosTest(matrizCasosTest)
+    matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
+
+    mostrarCasosTest(matrizCasosTest)
 
     # devuelve lista con los tipos adecuados
     # transformarStringaInt(matrizCasosTest)
 
-    #ficheroVolcadoCasosTest = "./stdout.txt"
+    ficheroVolcadoCasosTest = "./stdout.txt"
 
-    #crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest)
+    crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest)
+
+
 
     #Test
     # String: +5 Dexterity Vest, int: 10, int: 20
