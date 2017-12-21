@@ -27,10 +27,10 @@ if __name__ == '__main__':
     itemList = ""
     rutaAccesoFichero = "./stdout.gr.txt"
     itemList = accesoCasosTexttest(itemList, rutaAccesoFichero)
-    item = AgedBrie(itemList[0][1][0], itemList[0][1][1], itemList[0][1][2])
-
-    for dia in range(1, len(itemList)):
-        # print(5 * '-' + 'Dia %d' % dia + 5 * '-')
-        item.updateItem()
-        assert item.getSellIn() == itemList[dia][1][1] and item.getQuality() == itemList[dia][1][2], "Fallo en dia %d" % dia
-    print("uptadteQuality Ok")
+    queso = AgedBrie(itemList[0][1][0], itemList[0][1][1], itemList[0][1][2])
+    for items in itemList[1:]:
+        for item in items:
+            if item[0] == queso.getName():
+                queso.updateItem()
+                assert queso.getSellIn() == item[1] and queso.getQuality() == item[2], "Error en día %d" % itemList.index(items)
+    print("todos casos test pasados!")
