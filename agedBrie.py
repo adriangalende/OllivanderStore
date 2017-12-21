@@ -9,9 +9,7 @@ from Items import NormalItem
 
 class AgedBrie(NormalItem):
     def __init__(self, name, sell_in, quality):
-        self.name = name
-        self.sell_in = sell_in
-        self.quality = quality
+        NormalItem.__init__(self, name, sell_in, quality)
 
     def updateItem(self):
         if self.sell_in > 0:
