@@ -59,3 +59,7 @@ if __name__ == "__main__":
     for item in items:
         assert isinstance(item.getName(), str) and isinstance(item.getSellIn(), int) and isinstance(item.getQuality(), int), "El objeto tipo item debe ser (str, int, int)"
         print(item)
+
+    # probamos updateItem para el 2 objeto introducido en la lista de items
+    items[1].updateItem()
+    print(items[1])
