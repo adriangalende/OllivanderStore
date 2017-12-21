@@ -25,7 +25,7 @@ class AgedBrie(NormalItem):
 if __name__ == '__main__':
     from ollivander_acceso_a_datos import accesoCasosTexttest
     itemList = ""
-    rutaAccesoFichero = "./casos_test.txt"
+    rutaAccesoFichero = "./stdout.gr.txt"
     itemList = accesoCasosTexttest(itemList, rutaAccesoFichero)
     item = AgedBrie(itemList[0][1][0], itemList[0][1][1], itemList[0][1][2])
 
