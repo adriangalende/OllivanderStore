@@ -84,30 +84,32 @@ def accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero):
 
 def crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest):
     '''
-        inputs:
-            ficheroVolcadoCasosTest String # ruta de acceso a fichero para casos test
-            matrizCasosTest lista #contiene lista de listas, que contiene una lista de items
+    inputs:
+        ficheroVolcadoCasosTest String # ruta de acceso a fichero para casos
+        test matrizCasosTest lista #contiene lista de listas, que contiene
+        una lista de items
 
-        recorre matrizCasosTestString ( copia de matrizCasosTest) utilizando la tupla:
-            (offset, casosTestDia) => indice de la lista, lista con lista de items
-            #escribe cabecera separadora convirtiendo el indice que recibe de offset a string
-            ----- Dia x -----
-            recorre casosTestDia
-                escribe en el archivo de texto la unión de cada una de las listas por ","
-                y añade un salto de línea para el próximo item
+    recorre matrizCasosTestString ( copia de matrizCasosTest) utilizando la tupla:
+        (offset, casosTestDia) => indice de la lista, lista con lista de items
+        #escribe cabecera separadora convirtiendo el indice que recibe de offset a string
+        ----- Dia x -----
+        recorre casosTestDia
+            escribe en el archivo de texto la unión de cada una de las listas por ","
+            y añade un salto de línea para el próximo item
 
-                ["name","sellIn","quality"] ==> name,sellIn,quality \n
-                ["nombreItem"," x"," x"] ==> nombreitem, x, x \n
+            ["name","sellIn","quality"] ==> name,sellIn,quality \n
+            ["nombreItem"," x"," x"] ==> nombreitem, x, x \n
 
-        Output:
-            Si el archivo que está en la ruta no existe, lo crea
-            si ya existía lo sobreescribe con el siguiente formato
-            ----- Dia x -----
-            name,sellIn,quality
-            nombreitem, x, x
+    Output:
+        Si el archivo que está en la ruta no existe, lo crea
+        si ya existía lo sobreescribe con el siguiente formato
+        ----- Dia x -----
+        name,sellIn,quality
+        nombreitem, x, x
 
         '''
-    matrizCasosTestString = transformarIntAString(matrizCasosTest[:])
+    matrizCasosTestString = matrizCasosTest[:]
+    matrizCasosTestString = transformarIntAString(matrizCasosTestString)
     try:
         if not isinstance(ficheroVolcadoCasosTest, str):
             raise ValueError
@@ -138,14 +140,14 @@ def mostrarCasosTest(matrizCasosTest):
         for item in casosTestDia:
             print(item)
 
-
-
 # Helpers
+
 
 def transformarIntAString(matrizCasosTestString):
     '''
     devuelve en memoria lista con la misma estructura que matrizCasosTestString
-    pero con los tipos que corresponde a cada item para poder volcar en fichero de texto
+    pero con los tipos que corresponde a cada item para poder volcar en fichero
+    de texto
 
         inputs:
             matrizCasosTestString lista
@@ -162,14 +164,13 @@ def transformarIntAString(matrizCasosTestString):
                         [name,sellIn,quality], # String, String, String
                     ],
 
-    ''' 
+    '''
     for (offset, casosTestDia) in enumerate(matrizCasosTestString):
         for listItem in casosTestDia:
             for item in listItem:
                 listItem[listItem.index(item)] = str(item)
-    return matrizCasosTestString;
 
-
+    return matrizCasosTestString
 
 
 if __name__ == "__main__":
@@ -181,17 +182,14 @@ if __name__ == "__main__":
 
     matrizCasosTest = accesoCasosTexttest(matrizCasosTest, rutaAccesoFichero)
 
-    #mostrarCasosTest(matrizCasosTest)
-
-
+    # mostrarCasosTest(matrizCasosTest)
 
     ficheroVolcadoCasosTest = "./stdout.txt"
 
     crearFicheroCasosTest(ficheroVolcadoCasosTest, matrizCasosTest)
 
-
-    #Test
+    # Test
     # String: +5 Dexterity Vest, int: 10, int: 20
-    #print(type(matrizCasosTest)[0][0][0]) >> Str
-    #print(type(matrizCasosTest)[0][0][1]) >> int
-    #print(type(matrizCasosTest)[0][0][0]) >> int
+    # print(type(matrizCasosTest)[0][0][0]) >> Str
+    # print(type(matrizCasosTest)[0][0][1]) >> int
+    # print(type(matrizCasosTest)[0][0][0]) >> int
