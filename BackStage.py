@@ -13,14 +13,15 @@ class BackStage(NormalItem):
         Quality drops to 0 after the concert
          '''
 
-        if self.sell_in < 0:
-            self.setQuality(0)
-        elif self.sell_in <= 5:
+        if self.sell_in > 10:
+            self.setQuality(1)
+        elif self.sell_in > 5:
             self.setQuality(2)
-        elif self.sell_in <= 10:
+        elif self.sell_in > 0:
             self.setQuality(3)
         else:
-            self.setQuality(1)
+            self.quality = 0
+        self.setSellIn()
 
 
 
@@ -31,9 +32,10 @@ if __name__ == '__main__':
     rutaAccesoFichero = "./stdout.gr.txt"
     itemList = accesoCasosTexttest(itemList, rutaAccesoFichero)
     entradas = BackStage(itemList[0][5][0], itemList[0][5][1], itemList[0][5][2])
-    for items in itemList[1:]:
+    for items in itemList:
         for item in items:
             if item[0] == entradas.getName() and item[1] == entradas.getSellIn():
-                entradas.updateItem()
+                print(entradas)
                 assert entradas.getSellIn() == item[1] and entradas.getQuality() == item[2], "Error en día %d" % itemList.index(items)
+                entradas.updateItem()
     print("todos casos test pasados!")
