@@ -26,6 +26,7 @@ if __name__ == '__main__':
     for items in itemList[1:]:
         for item in items:
             if item[0] == sulfuras.getName() and item[1] == sulfuras.getSellIn():
+                print(sulfuras)
                 sulfuras.updateItem()
                 assert sulfuras.getSellIn() == item[1] and sulfuras.getQuality() == item[2], "Error en día %d" % itemList.index(items)
     print("todos casos test pasados!")
